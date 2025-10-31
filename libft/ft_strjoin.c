@@ -1,29 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strncmp.c                                       :+:      :+:    :+:   */
+/*   ft_strjoin.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/28 10:17:34 by hacharka          #+#    #+#             */
-/*   Updated: 2025/10/31 17:14:38 by hacharka         ###   ########.fr       */
+/*   Created: 2024/10/31 15:34:19 by hacharka          #+#    #+#             */
+/*   Updated: 2025/10/31 17:10:25 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
 
-int	ft_strncmp(char *s1, char *s2, size_t n)
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	unsigned int	i;
+	size_t	i;
+	size_t	j;
+	char	*join;
 
-	i = 0;
-	while (s1[i] != '\0' && s2[i] != '\0' && i < n && s1[i] == s2[i])
+	if (!s1 || !s2)
+		return (NULL);
+	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (join == NULL)
+		return (NULL);
+	else
 	{
-		i++;
+		i = 0;
+		j = 0;
+		while (i < ft_strlen(s1) && s1[i] != '\0')
+		{
+			join[i++] = (char)s1[j++];
+		}
+		j = 0;
+		while (j < ft_strlen(s2) && s2[j] != '\0')
+		{
+			join[i++] = (char)s2[j++];
+		}
+		join[i] = '\0';
+		return (join);
 	}
-	if (i == n)
-	{
-		return (0);
-	}
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
 }
