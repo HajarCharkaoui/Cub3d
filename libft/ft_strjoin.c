@@ -12,14 +12,16 @@
 
 #include "../cub3d.h"
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	size_t	i;
 	size_t	j;
 	char	*join;
 
-	if (!s1 || !s2)
+	if (!s1 && !s2)
 		return (NULL);
+	if (!s1)
+		return (ft_strdup(s2));
 	join = malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
 	if (join == NULL)
 		return (NULL);
@@ -28,15 +30,12 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		i = 0;
 		j = 0;
 		while (i < ft_strlen(s1) && s1[i] != '\0')
-		{
 			join[i++] = (char)s1[j++];
-		}
 		j = 0;
 		while (j < ft_strlen(s2) && s2[j] != '\0')
-		{
 			join[i++] = (char)s2[j++];
-		}
 		join[i] = '\0';
+		free(s1);
 		return (join);
 	}
 }

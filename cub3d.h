@@ -20,6 +20,8 @@
 #include <stdio.h>
 #include <unistd.h>
 #include <fcntl.h>
+#include <limits.h>
+#include <stdlib.h>
 
 typedef struct s_config
 {
@@ -29,12 +31,21 @@ typedef struct s_config
 	char	*EA_PATH;
 	int		floor_color;
 	int		ceiling_color;
+	char	**map;
 	
 }	t_config;
+
+//---------Libft--------------------
 size_t	ft_strlen(char *s);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s1);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strchr(const char *s, int c);
+char	*ft_strjoin(char *s1, char *s2);
+char	*ft_strchr (char *s, int c);
+char	**ft_split(char *s, char c);
+int		ft_atoi (char *str);
+char	*get_next_line(int fd);
+char	*ft_substr(char *s, unsigned int start, size_t len);
+char	*ft_strtrim(char *s1, char const *set);
 
+//-----------Parsing------------------
 # endif
