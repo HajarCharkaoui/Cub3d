@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 16:37:11 by hacharka          #+#    #+#             */
-/*   Updated: 2025/10/31 17:32:42 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/03 15:20:04 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,13 @@
 #include <fcntl.h>
 #include <limits.h>
 #include <stdlib.h>
+
+typedef struct s_list
+{
+	char			*line;
+	struct s_list	*prev;
+	struct s_list	*next;
+}	t_list;
 
 typedef struct s_config
 {
@@ -46,6 +53,19 @@ int		ft_atoi (char *str);
 char	*get_next_line(int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strtrim(char *s1, char const *set);
+void	ft_lstadd_back(t_list **lst, t_list *new);
+t_list	*node(char *line);
 
 //-----------Parsing------------------
+int		is_color(char *str);
+int		is_deriction(char *str);
+int		is_map(char *str);
+void	free_args(char **strs);
+void	free_config(t_config *config);
+int		parse_file(int fd, t_config *config);
+void	free_list(t_list *list);
+int		valide_line(t_list **tmp);
+void	set_path(char *path, t_config *conf);
+void	init_config(t_config *config);
+int		set_color(char *str, t_config *conf);
 # endif
