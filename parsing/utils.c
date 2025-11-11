@@ -25,8 +25,11 @@ void	init_config(t_config *config)
 
 int	is_deriction(char *str)
 {
-	if (ft_strncmp(str, "NO ", 3) == 0 || ft_strncmp(str, "SO ", 3) == 0
-			|| ft_strncmp(str, "WE ", 3) == 0 || ft_strncmp(str, "EA ", 3) == 0)
+	int	i;
+
+	i = skip_whitespace(str);
+	if (ft_strncmp(str + i, "NO ", 3) == 0 || ft_strncmp(str + i, "SO ", 3) == 0
+			|| ft_strncmp(str + i, "WE ", 3) == 0 || ft_strncmp(str + i, "EA ", 3) == 0)
 			return (1);
 	return (0);
 }
@@ -46,4 +49,21 @@ int	is_map(char *str)
 		i++;
 	}
 	return (1);
+}
+
+int	is_space(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
+
+int	skip_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_space(str[i]))
+		i++;
+	return (i);
 }

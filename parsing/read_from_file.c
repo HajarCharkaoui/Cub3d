@@ -19,7 +19,9 @@ void	fill_data(t_list *lines, t_config *config)
 	tmp = lines;
 	while (tmp)
 	{
-		if (!valide_line(&tmp))
+		if (ft_strncmp(tmp->line, "\n", 1) == 0 || ft_strncmp(tmp->line, "\0", 1) == 0)
+			tmp = tmp->next;
+		else if (!valide_line(tmp))
 		{
 			free_list(lines);
 			free_config(config);
@@ -31,8 +33,9 @@ void	fill_data(t_list *lines, t_config *config)
 				set_path(tmp->line, config);
 			else if (is_color(tmp->line))
 				set_color(tmp->line, config);
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
+		
 	}
 	free_list(lines);
 }

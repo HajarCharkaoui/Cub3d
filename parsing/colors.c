@@ -45,8 +45,10 @@ int	set_color(char *str, t_config *conf)
 	int		color;
 	char	**RGB;
 	char	*blue;
+	int		i;
 
-	RGB = ft_split(str + 2, ',');
+	i = skip_whitespace(str);
+	RGB = ft_split(str + i + 2, ',');
 	if (!RGB)
 		return (-1);
 	if (RGB[2] && ft_strchr(RGB[2], '\n'))
@@ -59,7 +61,7 @@ int	set_color(char *str, t_config *conf)
 		return (free_args(RGB), -1);
 	color = (ft_atoi(RGB[0]) << 16) + (ft_atoi(RGB[1]) << 8) + ft_atoi(RGB[2]);
 	free_args(RGB);
-	if (ft_strncmp(str, "F ", 2) == 0)
+	if (ft_strncmp(str + i, "F ", 2) == 0)
 		conf->floor_color = color;
 	else
 		conf->ceiling_color = color;
@@ -68,7 +70,10 @@ int	set_color(char *str, t_config *conf)
 
 int	is_color(char *str)
 {
-	if (ft_strncmp(str, "F ", 2) == 0 || ft_strncmp(str, "C ", 2) == 0)
+	int	i;
+
+	i = skip_whitespace(str);
+	if (ft_strncmp(str + i, "F ", 2) == 0 || ft_strncmp(str + i, "C ", 2) == 0)
 		return (1);
 	return (0);
 }

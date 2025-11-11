@@ -64,8 +64,10 @@ void	free_args(char **strs);
 void	free_config(t_config *config);
 int		parse_file(int fd, t_config *config);
 void	free_list(t_list *list);
-int		valide_line(t_list **tmp);
+int		valide_line(t_list *tmp);
 void	set_path(char *path, t_config *conf);
 void	init_config(t_config *config);
 int		set_color(char *str, t_config *conf);
+int		is_space(char c);
+int		skip_whitespace(char *str);
 # endif

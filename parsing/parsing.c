@@ -14,35 +14,46 @@
 
 void	set_path(char *path, t_config *conf)
 {
-	if (ft_strncmp(path, "NO ", 3) == 0)
-		conf->NO_PATH = ft_strtrim(path + 3, "\n");
-	else if (ft_strncmp(path, "SO ", 3) == 0)
-		conf->SO_PATH = ft_strtrim(path + 3, "\n");
-	else if (ft_strncmp(path, "WE ", 3) == 0)
-		conf->WE_PATH = ft_strtrim(path + 3, "\n");
-	else if (ft_strncmp(path, "EA ", 3) == 0)
-		conf->EA_PATH = ft_strtrim(path + 3, "\n");
+	int	i;
+
+	i = skip_whitespace(path);
+	if (ft_strncmp(path + i, "NO ", 3) == 0)
+		conf->NO_PATH = ft_strtrim(path + i + 3, "\n");
+	else if (ft_strncmp(path + i, "SO ", 3) == 0)
+		conf->SO_PATH = ft_strtrim(path + i + 3, "\n");
+	else if (ft_strncmp(path + i, "WE ", 3) == 0)
+		conf->WE_PATH = ft_strtrim(path + i + 3, "\n");
+	else if (ft_strncmp(path + i, "EA ", 3) == 0)
+		conf->EA_PATH = ft_strtrim(path + i + 3, "\n");
 }
 
-int	valide_line(t_list **tmp)
+int	valide_line(t_list *tmp)
 {
 	int		i;
-	char	*new_line;
 
 	i = 0;
-	while ((*tmp)->line[i] && ((*tmp)->line[i]  == ' ' || ((*tmp)->line[i]  >= 9 && (*tmp)->line[i]  <= 13)))
+	while (tmp->line[i] && is_space(tmp->line[i]))
 		i++;
-	new_line = ft_substr((*tmp)->line, i, ft_strlen((*tmp)->line) - i);
-	if (!new_line || ft_strncmp(new_line, "\0", 1) == 0)
+	if (is_map(tmp->line + i))
 	{
-		if (new_line)
-			free(new_line);
-		return (0);
+		t_list *p = tmp->prev;
+
+		while (p && p->line)
+		{
+			printf("p->prev: %s\n", p->line);
+			int j = 0;
+			while (p->line[j] && is_space(p->line[j]))
+				j++;
+			if (p->line[j])
+				break;
+			p = p->prev;
+		}
+		if (!p)
+			return (write(2, "Error: map is on the top of file\n", 34), 0);
 	}
-	free((*tmp)->line);
-	(*tmp)->line = new_line;
-	if (is_map((*tmp)->line) && !(*tmp)->prev)
-		return (write(2, "Error: map is on the top of file\n", 34), 0);
+	if (!is_color(tmp->line + i) && !is_deriction(tmp->line + i)
+		&& !is_map(tmp->line + i))
+		return (write(2, "Error: invalide line \n", 23), 0);
 	return (1);
 }
 
@@ -62,15 +73,15 @@ int	parsing(char *file_name, t_config *config)
 		return (-1);
 	return (0);
 }
-void	ll()
-{
-	system("leaks cub3D");
-}
+// void	ll()
+// {
+// 	system("leaks cub3D");
+// }
 int	main(int ac, char **av)
 {
 	t_config	*game_Conf;
 
-	atexit(ll);
+	// atexit(ll);
 	if (ac != 2)
 		return (1);
 	game_Conf = malloc(sizeof(t_config));
