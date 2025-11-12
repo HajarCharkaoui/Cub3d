@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:39:48 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/03 15:45:59 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/05 18:49:05 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,10 @@ int	set_color(char *str, t_config *conf)
 	int		color;
 	char	**RGB;
 	char	*blue;
+	int		i;
 
-	RGB = ft_split(str + 2, ',');
+	i = skip_whitespaces(str);
+	RGB = ft_split(str + i + 2, ',');
 	if (!RGB)
 		return (-1);
 	if (RGB[2] && ft_strchr(RGB[2], '\n'))
@@ -68,7 +70,10 @@ int	set_color(char *str, t_config *conf)
 
 int	is_color(char *str)
 {
-	if (ft_strncmp(str, "F ", 2) == 0 || ft_strncmp(str, "C ", 2) == 0)
+	int	i;
+
+	i = skip_whitespaces(str);
+	if (ft_strncmp(str + i, "F ", 2) == 0 || ft_strncmp(str + i, "C ", 2) == 0)
 		return (1);
 	return (0);
 }

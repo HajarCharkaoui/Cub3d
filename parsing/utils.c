@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:36:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/03 16:16:24 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/12 17:29:53 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,30 +20,43 @@ void	init_config(t_config *config)
 	config->EA_PATH = NULL;
 	config->ceiling_color = -1;
 	config->floor_color = -1;
+	config->setting_count = 0;
 	config->map = NULL;
 }
 
 int	is_deriction(char *str)
 {
-	if (ft_strncmp(str, "NO ", 3) == 0 || ft_strncmp(str, "SO ", 3) == 0
-			|| ft_strncmp(str, "WE ", 3) == 0 || ft_strncmp(str, "EA ", 3) == 0)
+	int	i;
+
+	i = skip_whitespaces(str);
+	if (ft_strncmp(str + i, "NO ", 3) == 0 || ft_strncmp(str + i, "SO ", 3) == 0
+			|| ft_strncmp(str + i, "WE ", 3) == 0 || ft_strncmp(str + i, "EA ", 3) == 0)
 			return (1);
 	return (0);
 }
 
 int	is_map(char *str)
 {
-	int	i;
+	int		i;
+	char	*new_str;
 
 	i = 0;
-	while (str[i])
+	new_str = ft_strtrim(str, "\n");
+	while (new_str[i])
 	{
-		if (str[i] != '0' && str[i] != '1' && str[i] != ' ' && str[i] != 'N'
-			&& str[i] != 'E' && str[i] != 'S' && str[i] != 'W' && str[i] != '\n')
+		if (new_str[i] != '0' && new_str[i] != '1' && new_str[i] != ' ' && new_str[i] != 'N'
+			&& new_str[i] != 'E' && new_str[i] != 'S' && new_str[i] != 'W')
 			{
 				return (0);
 			}
 		i++;
 	}
+	free(new_str);
 	return (1);
+}
+
+void	error(char *msg)
+{
+	write(2, msg, ft_strlen(msg));
+	write(2, "\n", 1);
 }

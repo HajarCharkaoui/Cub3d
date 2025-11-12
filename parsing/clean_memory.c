@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:38:32 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/03 13:26:37 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/12 17:07:10 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ void	free_config(t_config *config)
 			free(config->WE_PATH);
 		if (config->EA_PATH)
 			free(config->EA_PATH);
+		if (config->map)
+			free_args(config->map);
 		// also free your map, textures, etc.
 
 	}
