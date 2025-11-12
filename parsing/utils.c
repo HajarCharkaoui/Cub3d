@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:36:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/12 17:29:53 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/12 17:34:30 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,22 @@ int	is_map(char *str)
 	return (1);
 }
 
+int	is_space(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
+}
+
+int	skip_whitespace(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i] && is_space(str[i]))
+		i++;
+	return (i);
+}
 void	error(char *msg)
 {
 	write(2, msg, ft_strlen(msg));

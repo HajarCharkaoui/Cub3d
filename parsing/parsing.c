@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:53:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/12 17:24:21 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/12 17:36:11 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int ac, char **av)
 {
 	t_config	*game_Conf;
 
-	atexit(ll);
+	// atexit(ll);
 	if (ac != 2)
 		return (1);
 	game_Conf = malloc(sizeof(t_config));

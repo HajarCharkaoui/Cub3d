@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:39:48 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/05 18:49:05 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/12 17:35:51 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	set_color(char *str, t_config *conf)
 		return (free_args(RGB), -1);
 	color = (ft_atoi(RGB[0]) << 16) + (ft_atoi(RGB[1]) << 8) + ft_atoi(RGB[2]);
 	free_args(RGB);
-	if (ft_strncmp(str, "F ", 2) == 0)
+	if (ft_strncmp(str + i, "F ", 2) == 0)
 		conf->floor_color = color;
 	else
 		conf->ceiling_color = color;
