@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 16:37:11 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/12 17:35:09 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:06:22 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,4 +71,5 @@ void	init_config(t_config *config);
 int		set_color(char *str, t_config *conf);
 int		skip_whitespaces(char *str);
 void	error(char *msg);
+int		is_space(char c);
 # endif

@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:53:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/12 17:36:11 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/13 20:12:24 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,13 @@ int	parsing(char *file_name, t_config *config)
 
 void	ll()
 {
-	system("leaks cub3D");
+	system("leaks -q cub3D");
 }
 int	main(int ac, char **av)
 {
 	t_config	*game_Conf;
 
-	// atexit(ll);
+	atexit(ll);
 	if (ac != 2)
 		return (1);
 	game_Conf = malloc(sizeof(t_config));
@@ -106,7 +106,7 @@ int	main(int ac, char **av)
 	else
 		for (int i = 0; game_Conf->map[i]; i++)
 			printf("%s", game_Conf->map[i]);
-		printf("--------------------------------------------\n");
+		printf("\n--------------------------------------------\n");
 	free_config(game_Conf);
 	free(game_Conf);
 	return (0);

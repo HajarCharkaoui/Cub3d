@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:36:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/12 17:34:30 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/13 17:45:42 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,33 +35,6 @@ int	is_deriction(char *str)
 	return (0);
 }
 
-int	is_map(char *str)
-{
-	int		i;
-	char	*new_str;
-
-	i = 0;
-	new_str = ft_strtrim(str, "\n");
-	while (new_str[i])
-	{
-		if (new_str[i] != '0' && new_str[i] != '1' && new_str[i] != ' ' && new_str[i] != 'N'
-			&& new_str[i] != 'E' && new_str[i] != 'S' && new_str[i] != 'W')
-			{
-				return (0);
-			}
-		i++;
-	}
-	free(new_str);
-	return (1);
-}
-
-int	is_space(char c)
-{
-	if (c == ' ' || (c >= 9 && c <= 13))
-		return (1);
-	return (0);
-}
-
 int	skip_whitespace(char *str)
 {
 	int	i;
@@ -75,4 +48,39 @@ void	error(char *msg)
 {
 	write(2, msg, ft_strlen(msg));
 	write(2, "\n", 1);
+}
+int	is_map(char *str)
+{
+	int		i;
+	char	*new_str;
+	// int		j;
+
+	i = 0;
+	new_str = ft_strtrim(str, "\n");
+	i = skip_whitespace(new_str);
+	printf("{%s}\n", new_str + i);
+	while (new_str[i] && is_space(new_str[i]))
+		i++;
+	if (new_str[i] == '\0')
+		return (0);
+	while (new_str[i])
+	{
+		if (new_str[i] != '0' && new_str[i] != '1' && new_str[i] != ' ' && new_str[i] != 'N'
+			&& new_str[i] != 'E' && new_str[i] != 'S' && new_str[i] != 'W')
+			{
+				printf("not map\n");
+				return (0);
+			}
+		i++;
+	}
+	free(new_str);
+	// printf("hello\n");
+	return (1);
+}
+
+int	is_space(char c)
+{
+	if (c == ' ' || (c >= 9 && c <= 13))
+		return (1);
+	return (0);
 }
