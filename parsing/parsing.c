@@ -44,7 +44,6 @@ void	set_map(t_list *map_list, t_config *conf)
 	int		i;
 
 	size = ft_lstsize(map_list);
-	printf("size: %d\n", size);
 	tmp = map_list;
 	conf->map = malloc(sizeof(char *) * (size + 1));
 	if (!conf->map)
@@ -72,7 +71,7 @@ int	parsing(char *file_name, t_config *config)
 	fd = open(file_name, O_RDONLY);
 	if (fd == -1)
 		return (perror("Error opening file"), -1);
-	if (read_lines(fd, &map, config) == -1)
+	if (read_lines(fd, &map, config) == -1 || check_settings(config) == -1)
 		return (-1);
 	set_map(map, config);
 	return (0);
@@ -104,9 +103,9 @@ int	main(int ac, char **av)
 	if (!game_Conf->map)
 		printf("NULL\n");
 	else
-		for (int i = 0; game_Conf->map[i]; i++)
+		{for (int i = 0; game_Conf->map[i]; i++)
 			printf("%s", game_Conf->map[i]);
-		printf("\n--------------------------------------------\n");
+		printf("\n--------------------------------------------\n");}
 	free_config(game_Conf);
 	free(game_Conf);
 	return (0);

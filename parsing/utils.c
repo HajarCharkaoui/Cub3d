@@ -53,12 +53,10 @@ int	is_map(char *str)
 {
 	int		i;
 	char	*new_str;
-	// int		j;
 
 	i = 0;
 	new_str = ft_strtrim(str, "\n");
 	i = skip_whitespace(new_str);
-	printf("{%s}\n", new_str + i);
 	while (new_str[i] && is_space(new_str[i]))
 		i++;
 	if (new_str[i] == '\0')
@@ -68,13 +66,11 @@ int	is_map(char *str)
 		if (new_str[i] != '0' && new_str[i] != '1' && new_str[i] != ' ' && new_str[i] != 'N'
 			&& new_str[i] != 'E' && new_str[i] != 'S' && new_str[i] != 'W')
 			{
-				printf("not map\n");
 				return (0);
 			}
 		i++;
 	}
 	free(new_str);
-	// printf("hello\n");
 	return (1);
 }
 
