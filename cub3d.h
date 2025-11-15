@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 16:37:11 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/13 17:06:22 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/15 16:52:12 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,20 @@ typedef struct s_list
 
 typedef struct s_config
 {
-	char	*NO_PATH;
-	char	*SO_PATH;
-	char	*WE_PATH;
-	char	*EA_PATH;
-	int		floor_color;
-	int		ceiling_color;
-	int		setting_count;
-	char	**map;
-	
+	char		*NO_PATH;
+	char		*SO_PATH;
+	char		*WE_PATH;
+	char		*EA_PATH;
+	int			floor_color;
+	int			ceiling_color;
+	int			setting_count;
+	char		**map;
+	double		X_player;
+	double		Y_player;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 }	t_config;
 
 //---------Libft--------------------
@@ -72,4 +77,8 @@ int		set_color(char *str, t_config *conf);
 int		skip_whitespaces(char *str);
 void	error(char *msg);
 int		is_space(char c);
+int		check_settings(t_config *conf);
+int		empty_line(char *line);
+void	save_map(t_list **map_list, char *data);
+void	set_map(t_list *map_list, t_config *conf);
 # endif

@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:53:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/13 20:12:24 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/15 17:24:07 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,16 @@
 
 void	set_path(char *path, t_config *conf)
 {
-	int	i;
-
-	i = skip_whitespaces(path);
-	if (ft_strncmp(path + i, "NO ", 3) == 0)
-		conf->NO_PATH = ft_strtrim(path + i + 3, "\n");
-	else if (ft_strncmp(path + i, "SO ", 3) == 0)
-		conf->SO_PATH = ft_strtrim(path + i + 3, "\n");
-	else if (ft_strncmp(path + i, "WE ", 3) == 0)
-		conf->WE_PATH = ft_strtrim(path + i + 3, "\n");
-	else if (ft_strncmp(path + i, "EA ", 3) == 0)
-		conf->EA_PATH = ft_strtrim(path + i + 3, "\n");
+	if (ft_strncmp(path, "NO ", 3) == 0 && conf->NO_PATH)
+		conf->NO_PATH = ft_strtrim(path + 3, "\n");
+	else if (ft_strncmp(path, "SO ", 3) == 0 && conf->SO_PATH)
+		conf->SO_PATH = ft_strtrim(path + 3, "\n");
+	else if (ft_strncmp(path, "WE ", 3) == 0 && conf->WE_PATH)
+		conf->WE_PATH = ft_strtrim(path + 3, "\n");
+	else if (ft_strncmp(path, "EA ", 3) == 0 && conf->EA_PATH)
+		conf->EA_PATH = ft_strtrim(path + 3, "\n");
+	else
+		return ;
 }
 
 int	skip_whitespaces(char *str)
@@ -37,26 +36,7 @@ int	skip_whitespaces(char *str)
 		i++;
 	return (i);
 }
-void	set_map(t_list *map_list, t_config *conf)
-{
-	int		size;
-	t_list	*tmp;
-	int		i;
 
-	size = ft_lstsize(map_list);
-	tmp = map_list;
-	conf->map = malloc(sizeof(char *) * (size + 1));
-	if (!conf->map)
-		return (error("Malloc failed"));
-	i = 0;
-	while (tmp)
-	{
-		conf->map[i++] = ft_strdup(tmp->line);
-		tmp = tmp->next;
-	}
-	conf->map[i] = NULL;
-	free_list(map_list);
-}
 int	parsing(char *file_name, t_config *config)
 {
 	int		len;
@@ -72,8 +52,14 @@ int	parsing(char *file_name, t_config *config)
 	if (fd == -1)
 		return (perror("Error opening file"), -1);
 	if (read_lines(fd, &map, config) == -1 || check_settings(config) == -1)
+	{
+		if (map)
+			free_list(map);
 		return (-1);
+	}
 	set_map(map, config);
+	if (set_player_pos(config) == -1 || !valide_map(config->map))
+		return (-1);
 	return (0);
 }
 

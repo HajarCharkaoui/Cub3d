@@ -5,16 +5,17 @@
 
 
      
-SO ./path_to_the_south_texture
-SO ./path_to_the_south_texture
-SO ./path_to_the_south_texture
+  NO ./path_to_the_south_texture
 
+SO ./path_to_the_south_texture
 WE ./path_to_the_west_texture
 
+
 EA ./path_to_the_east_texture
-           F 20,            200,0
+           F 20,            888,0
 C 225,30,0
 
   1111111
   10000111
   111N1111
+  1111111

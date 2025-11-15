@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:39:48 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/13 20:07:13 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/15 14:52:38 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,15 +28,31 @@ int	valide_color(char **RGB)
 	return (1);
 }
 
+int	coma_count(char *str)
+{
+	int	coma;
+	int	i;
+
+	coma = 0;
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] == ',')
+			coma++;
+		i++;
+	}
+	return (coma);
+}
+
 int	set_color(char *str, t_config *conf)
 {
 	int		color;
 	char	**RGB;
 	char	*blue;
-	int		i;
 
-	i = skip_whitespaces(str);
-	RGB = ft_split(str + i + 2, ',');
+	if (coma_count(str) > 3)
+		return (-1);
+	RGB = ft_split(str + 2, ',');
 	if (!RGB)
 		return (-1);
 	if (RGB[2] && ft_strchr(RGB[2], '\n'))
@@ -49,7 +65,7 @@ int	set_color(char *str, t_config *conf)
 		return (free_args(RGB), -1);
 	color = (ft_atoi(RGB[0]) << 16) + (ft_atoi(RGB[1]) << 8) + ft_atoi(RGB[2]);
 	free_args(RGB);
-	if (ft_strncmp(str + i, "F ", 2) == 0)
+	if (ft_strncmp(str, "F ", 2) == 0)
 		conf->floor_color = color;
 	else
 		conf->ceiling_color = color;
