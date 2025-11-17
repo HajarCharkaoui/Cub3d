@@ -6,22 +6,22 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 16:37:11 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/15 16:52:12 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/17 20:17:16 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef CUB3D_H
+#ifndef CUB3D_H
 # define CUB3D_H
 
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
 
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <limits.h>
-#include <stdlib.h>
+# include <stdio.h>
+# include <unistd.h>
+# include <fcntl.h>
+# include <limits.h>
+# include <stdlib.h>
 
 typedef struct s_list
 {
@@ -32,16 +32,16 @@ typedef struct s_list
 
 typedef struct s_config
 {
-	char		*NO_PATH;
-	char		*SO_PATH;
-	char		*WE_PATH;
-	char		*EA_PATH;
+	char		*no_path;
+	char		*so_path;
+	char		*we_path;
+	char		*ea_path;
 	int			floor_color;
 	int			ceiling_color;
 	int			setting_count;
 	char		**map;
-	double		X_player;
-	double		Y_player;
+	double		x_player;
+	double		y_player;
 	double		dir_x;
 	double		dir_y;
 	double		plane_x;
@@ -53,9 +53,9 @@ size_t	ft_strlen(char *s);
 int		ft_strncmp(char *s1, char *s2, size_t n);
 char	*ft_strdup(char *s1);
 char	*ft_strjoin(char *s1, char *s2);
-char	*ft_strchr (char *s, int c);
+char	*ft_strchr(char *s, int c);
 char	**ft_split(char *s, char c);
-int		ft_atoi (char *str);
+int		ft_atoi(char *str);
 char	*get_next_line(int fd);
 char	*ft_substr(char *s, unsigned int start, size_t len);
 char	*ft_strtrim(char *s1, char const *set);
@@ -81,4 +81,8 @@ int		check_settings(t_config *conf);
 int		empty_line(char *line);
 void	save_map(t_list **map_list, char *data);
 void	set_map(t_list *map_list, t_config *conf);
-# endif
+int		set_player_pos(t_config *conf);
+int		parsing(char *file_name, t_config *config);
+void	set_coordinates(t_config *conf, int y, int x);
+int		valide_path(t_config *conf);
+#endif

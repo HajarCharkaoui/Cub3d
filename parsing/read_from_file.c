@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:46:30 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/15 15:07:56 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/17 20:34:26 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 int	save_settings(char *element, t_config *conf, int map_start)
 {
-	int	i;
+	int		i;
+	char	*path;
 
-	i = skip_whitespaces(element);
 	if (map_start)
 	{
 		if (conf->setting_count == 0)
@@ -27,10 +27,12 @@ int	save_settings(char *element, t_config *conf, int map_start)
 	}
 	else
 	{
+		path = ft_strtrim(element, "\n");
+		i = skip_whitespaces(path);
 		if (is_deriction(element))
-			set_path(element + i, conf);
+			set_path(path + i, conf);
 		else if (is_color(element))
-			set_color(element + i, conf);
+			set_color(path + i, conf);
 		conf->setting_count ++;
 		return (0);
 	}
@@ -85,31 +87,12 @@ int	read_lines(int fd, t_list **map, t_config *config)
 	close(fd);
 	return (1);
 }
-int	valide_path(t_config *conf)
-{
-	int	fd;
 
-	fd = open(conf->NO_PATH, O_RDONLY);
-	if (fd == -1)
-		return (error("Error: Incorrect path to the nourth texture"), 0);
-	close(fd);
-	fd = open(conf->SO_PATH, O_RDONLY);
-	if (fd == -1)
-		return (error("Error: Incorrect path to the nourth texture"), 0);
-	close(fd);
-	fd = open(conf->WE_PATH, O_RDONLY);
-	if (fd == -1)
-		return (error("Error: Incorrect path to the nourth texture"), 0);
-	close(fd);
-	fd = open(conf->EA_PATH, O_RDONLY);
-	if (fd == -1)
-		return (error("Error: Incorrect path to the nourth texture"), 0);
-	close(fd);
-	return (1);
-}
 int	check_settings(t_config *conf)
 {
-	if ( conf->setting_count >= 0 && conf->setting_count < 6)
+	if (!conf->no_path || !conf->so_path || !conf->ea_path
+		|| !conf->we_path || conf->ceiling_color == -1
+		|| conf->floor_color == -1)
 	{
 		error("Error: One or more settings are missing");
 		return (-1);
@@ -119,8 +102,8 @@ int	check_settings(t_config *conf)
 		error("Error: Duplicate configuration element found");
 		return (-1);
 	}
-	// if (!valide_path(conf))
-	// 	return (-1);
+	if (!valide_path(conf))
+		return (-1);
 	if (conf->ceiling_color == -1 || conf->floor_color == -1)
 	{
 		error("Error: Invalide color");

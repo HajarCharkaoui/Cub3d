@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:39:48 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/15 14:52:38 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/17 20:23:27 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,24 +47,24 @@ int	coma_count(char *str)
 int	set_color(char *str, t_config *conf)
 {
 	int		color;
-	char	**RGB;
+	char	**rgb;
 	char	*blue;
 
 	if (coma_count(str) > 3)
 		return (-1);
-	RGB = ft_split(str + 2, ',');
-	if (!RGB)
+	rgb = ft_split(str + 2, ',');
+	if (!rgb)
 		return (-1);
-	if (RGB[2] && ft_strchr(RGB[2], '\n'))
+	if (rgb[2] && ft_strchr(rgb[2], '\n'))
 	{
-		blue = ft_strtrim(RGB[2], "\n");
-		free(RGB[2]);
-		RGB[2] = blue;
+		blue = ft_strtrim(rgb[2], "\n");
+		free(rgb[2]);
+		rgb[2] = blue;
 	}
-	if (!valide_color(RGB))
-		return (free_args(RGB), -1);
-	color = (ft_atoi(RGB[0]) << 16) + (ft_atoi(RGB[1]) << 8) + ft_atoi(RGB[2]);
-	free_args(RGB);
+	if (!valide_color(rgb))
+		return (free_args(rgb), -1);
+	color = (ft_atoi(rgb[0]) << 16) + (ft_atoi(rgb[1]) << 8) + ft_atoi(rgb[2]);
+	free_args(rgb);
 	if (ft_strncmp(str, "F ", 2) == 0)
 		conf->floor_color = color;
 	else
