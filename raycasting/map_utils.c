@@ -1,39 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   map_utils.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/11/17 13:32:54 by hacharka          #+#    #+#             */
-/*   Updated: 2026/01/23 01:23:41 by azmakhlo         ###   ########.fr       */
+/*   Created: 2026/01/22 19:27:37 by azmakhlo          #+#    #+#             */
+/*   Updated: 2026/01/22 19:27:38 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
-int	main(int argc, char **argv)
+int	get_map_rows(char **map)
 {
-	t_config	config;
+	int	i;
 
-	if (argc != 2)
+	i = 0;
+	while (map[i])
+		i++;
+	return (i);
+}
+
+int	get_map_cols(char **map)
+{
+	int	i;
+	int	max;
+	int	len;
+
+	i = 0;
+	max = 0;
+	while (map[i])
 	{
-		error("Usage: ./cub3D <map.cub>");
-		return (1);
+		len = ft_strlen(map[i]);
+		if (len > max)
+			max = len;
+		i++;
 	}
-	init_config(&config);
-	if (parsing(argv[1], &config))
-	{
-		free_config(&config);
-		return (1);
-	}
-	if (load_all_textures(&config))
-	{
-		free_config(&config);
-		return (1);
-	}
-	raycasting(&config);
-	free_textures(&config);
-	free_config(&config);
-	return (0);
+	return (max);
 }

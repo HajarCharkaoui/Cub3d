@@ -1,8 +1,7 @@
 CC = cc
-CFLAGS = -Wall -Wextra -Werror 
+CFLAGS = -Wall -Wextra -Werror -g -fsanitize=address
 NAME = cub3D
 MLX = MLX42/build/libmlx42.a
-GLFW = MLX42/build/_deps/glfw-build/src/libglfw3.a
 SRC = main.c \
       parsing/parsing.c \
       parsing/get_next_line.c \
@@ -20,7 +19,6 @@ SRC = main.c \
       raycasting/ray_init.c \
       raycasting/movement.c \
       raycasting/map_utils.c \
-      raycasting/sliding.c \
       libft/ft_atoi.c \
       libft/ft_lstsize.c \
       libft/ft_lstadd_back.c \
@@ -36,10 +34,10 @@ OBJ = $(SRC:.c=.o)
 all: $(NAME)
 $(MLX):
 	@test -d MLX42 || git clone https://github.com/codam-coding-college/MLX42.git
-	@cmake -S MLX42 -B MLX42/build
+	@cmake MLX42 -B MLX42/build
 	@make -C MLX42/build -j4
 $(NAME): $(MLX) $(OBJ)
-	$(CC) $(CFLAGS) $(OBJ) $(MLX) $(GLFW) -IMLX42/include -lGL -lm -ldl -lpthread -lX11 -lXrandr -lXi -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJ) $(MLX) -IMLX42/include -L/goinfre/$(USER)/homebrew/opt/glfw/lib -lglfw -framework Cocoa -framework OpenGL -framework IOKit -o $(NAME)
 %.o: %.c cub3d.h
 	$(CC) $(CFLAGS) -IMLX42/include -c $< -o $@
 clean:

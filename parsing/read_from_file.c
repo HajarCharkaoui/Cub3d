@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 11:46:30 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:34:26 by hacharka         ###   ########.fr       */
+/*   Updated: 2026/01/21 18:04:21 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ int	save_settings(char *element, t_config *conf, int map_start)
 			set_path(path + i, conf);
 		else if (is_color(element))
 			set_color(path + i, conf);
-		conf->setting_count ++;
+		free(path);
+		conf->setting_count++;
 		return (0);
 	}
 }
@@ -74,7 +75,8 @@ int	read_lines(int fd, t_list **map, t_config *config)
 	*map = NULL;
 	status = 0;
 	map_start = 0;
-	while ((line = get_next_line(fd)))
+	line = get_next_line(fd);
+	while (line)
 	{
 		status = process_lines(map, config, line, &map_start);
 		free(line);
@@ -83,6 +85,7 @@ int	read_lines(int fd, t_list **map, t_config *config)
 			close(fd);
 			return (-1);
 		}
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (1);
@@ -90,11 +93,13 @@ int	read_lines(int fd, t_list **map, t_config *config)
 
 int	check_settings(t_config *conf)
 {
-	if (!conf->no_path || !conf->so_path || !conf->ea_path
-		|| !conf->we_path || conf->ceiling_color == -1
-		|| conf->floor_color == -1)
+	if (!conf->no_path || !conf->so_path || !conf->ea_path || !conf->we_path
+		|| conf->ceiling_color == -1 || conf->floor_color == -1)
 	{
-		error("Error: One or more settings are missing");
+		if (conf->ceiling_color == -1 || conf->floor_color == -1)
+			error("Error: Invalide color or one of colors is missing");
+		else
+			error("Error: One or more settings are missing");
 		return (-1);
 	}
 	else if (conf->setting_count > 6)
@@ -104,10 +109,5 @@ int	check_settings(t_config *conf)
 	}
 	if (!valide_path(conf))
 		return (-1);
-	if (conf->ceiling_color == -1 || conf->floor_color == -1)
-	{
-		error("Error: Invalide color");
-		return (-1);
-	}
 	return (1);
 }

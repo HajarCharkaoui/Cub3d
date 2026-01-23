@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/10/31 15:53:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:32:12 by hacharka         ###   ########.fr       */
+/*   Updated: 2026/01/23 01:24:40 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	skip_whitespaces(char *str)
 	int	i;
 
 	i = 0;
-	while (str[i] && (str[i] == ' ' 
+	while (str[i] && (str[i] == ' '
 			|| (str[i] >= 9 && str[i] <= 13)))
 		i++;
 	return (i);
@@ -102,7 +102,6 @@ int	parsing(char *file_name, t_config *config)
 	t_list	*map;
 
 	map = NULL;
-	init_config(config);
 	len = ft_strlen(file_name);
 	if (ft_strncmp(file_name + (len - 4), ".cub", 4) != 0)
 		return (write(2, "Error: Map file must have a .cub extension\n", 44),

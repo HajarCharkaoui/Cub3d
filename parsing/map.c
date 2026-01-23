@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   map.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/15 15:06:05 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:30:16 by hacharka         ###   ########.fr       */
+/*   Updated: 2026/01/23 01:25:04 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,14 @@ int	is_map(char *str)
 	while (new_str[i] && is_space(new_str[i]))
 		i++;
 	if (new_str[i] == '\0')
-		return (0);
+		return (free(new_str), 0);
 	while (new_str[i])
 	{
 		if (new_str[i] != '0' && new_str[i] != '1' && new_str[i] != ' '
 			&& new_str[i] != 'N' && new_str[i] != 'E' && new_str[i] != 'S'
 			&& new_str[i] != 'W')
 		{
+			free(new_str);
 			return (0);
 		}
 		i++;
@@ -86,7 +87,7 @@ int	set_player_pos(t_config *conf)
 		j = 0;
 		while (conf->map[i][j])
 		{
-			if (conf->map[i][j] == 'N' || conf->map[i][j] == 'S' 
+			if (conf->map[i][j] == 'N' || conf->map[i][j] == 'S'
 				||conf->map[i][j] == 'E' || conf->map[i][j] == 'W')
 			{
 				nbr_players++;

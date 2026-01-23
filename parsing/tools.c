@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 17:59:44 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:34:59 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/20 18:52:00 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	set_coordinates(t_config *conf, int y, int x)
 	char	dir;
 
 	dir = conf->map[y][x];
-	conf->x_player = x;
-	conf->y_player = y;
+	conf->x_player = x + 0.5;
+	conf->y_player = y + 0.5;
 	if (dir == 'N')
 	{
 		direction_vector(conf, 0, -1);

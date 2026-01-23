@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   path.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
+/*   By: azmakhlo <azmakhlo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/17 13:30:45 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:19:35 by hacharka         ###   ########.fr       */
+/*   Updated: 2025/11/20 19:11:09 by azmakhlo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void	init_config(t_config *config)
 	config->x_player = 0;
 	config->y_player = 0;
 	config->dir_x = 0;
-	config->dir_x = 0;
+	config->dir_y = 0;
 	config->plane_x = 0;
 	config->plane_y = 0;
 }
@@ -33,13 +33,13 @@ void	init_config(t_config *config)
 void	set_path(char *path, t_config *conf)
 {
 	if (ft_strncmp(path, "NO ", 3) == 0 && !conf->no_path)
-		conf->no_path = ft_strtrim(path + 3, " ");
+		conf->no_path = ft_strtrim(path + 3, " \t");
 	else if (ft_strncmp(path, "SO ", 3) == 0 && !conf->so_path)
-		conf->so_path = ft_strtrim(path + 3, " ");
+		conf->so_path = ft_strtrim(path + 3, " \t");
 	else if (ft_strncmp(path, "WE ", 3) == 0 && !conf->we_path)
-		conf->we_path = ft_strtrim(path + 3, " ");
+		conf->we_path = ft_strtrim(path + 3, " \t");
 	else if (ft_strncmp(path, "EA ", 3) == 0 && !conf->ea_path)
-		conf->ea_path = ft_strtrim(path + 3, " ");
+		conf->ea_path = ft_strtrim(path + 3, " \t");
 	else
 		return ;
 }

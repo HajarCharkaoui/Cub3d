@@ -6,7 +6,7 @@
 /*   By: hacharka <hacharka@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/03 13:39:48 by hacharka          #+#    #+#             */
-/*   Updated: 2025/11/17 20:23:27 by hacharka         ###   ########.fr       */
+/*   Updated: 2026/01/20 22:21:48 by hacharka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	valide_color(char **RGB)
 {
 	int	i;
 
-	if (RGB[3])
+	if (!RGB[0] || !RGB[1] || !RGB[2] || RGB[3])
 		return (0);
 	i = 0;
 	while (RGB[i])
@@ -50,7 +50,7 @@ int	set_color(char *str, t_config *conf)
 	char	**rgb;
 	char	*blue;
 
-	if (coma_count(str) > 3)
+	if (coma_count(str) != 2)
 		return (-1);
 	rgb = ft_split(str + 2, ',');
 	if (!rgb)
